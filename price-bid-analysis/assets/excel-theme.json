@@ -1,0 +1,70 @@
+{
+  "schema": "price-bid-excel-theme/v1",
+  "description": "回标分析表格主题；由生成工具读取应用，不能代替实际格式设置与渲染检查",
+  "font": {
+    "preferred_family": "Source Han Sans SC",
+    "title_pt": 18,
+    "section_pt": 12,
+    "header_pt": 11,
+    "body_pt": 11,
+    "note_pt": 9,
+    "chart_min_pt": 10
+  },
+  "colors": {
+    "navy": "2F5496",
+    "teal": "087F8C",
+    "text": "243447",
+    "muted": "64748B",
+    "background": "FFFFFF",
+    "banded_row": "F3F6FA",
+    "border": "DCE4ED",
+    "subtotal": "E7F3F3",
+    "pending": "FFF1D6",
+    "error": "FCE8E6",
+    "unavailable": "EDF0F3",
+    "hyperlink": "0563C1",
+    "baseline": "D6E4F0",
+    "deviation": "FFEB9C",
+    "severe_deviation": "FFC7CE",
+    "lowest_comparable": "C6EFCE"
+  },
+  "series_palette": [
+    "087F8C",
+    "4067A4",
+    "A57939",
+    "7A6AA6",
+    "5A8270"
+  ],
+  "number_formats": {
+    "amount": "#,##0.00;[Red](#,##0.00);0.00",
+    "quantity": "#,##0.###",
+    "percent": "0.0%;[Red](0.0%);0.0%",
+    "date": "yyyy-mm-dd"
+  },
+  "layout": {
+    "show_gridlines": false,
+    "header_height_pt": 34,
+    "default_row_height_pt": 24,
+    "amount_column_width": 18,
+    "url_column_width": 44,
+    "freeze_headers": true,
+    "filter_data_rows": true,
+    "merge_data_cells": false,
+    "style": "compact_engineering_comparison",
+    "bidder_column_group": [
+      "unit_price",
+      "line_total",
+      "deviation_pct"
+    ],
+    "baseline_adjacent_to_item": true,
+    "highlight_affected_bidder_only": true
+  },
+  "charts": {
+    "native_editable_preferred": true,
+    "two_dimensional_only": true,
+    "category_limit": 10,
+    "amount_axis_zero_origin": true,
+    "missing_as_zero": false,
+    "exclude_unconfirmed": true
+  }
+}
