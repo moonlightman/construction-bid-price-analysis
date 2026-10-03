@@ -22,6 +22,8 @@
 
 只把明细之外且不重复计取的调整放入 `total_adjustments`。负数可用于有依据的折扣。未知调整使汇总不可完整核对。不能只因目前提取行相加等于总价，就宣布覆盖完整。
 
+费率与暂估金额按 [计价规则](rate-pricing.md) 处理。`total_adjustments` 继续保存原件金额与状态，不能用补齐测算覆盖原件空白。可在项目底稿另外保存 `rate_pricing`（mode、fixed_amount 或 provisional_base、rate_convention、source），在各投标人另存 `comparison_adjustments`（amount、reason、rule_source、confirmation_status），用于有依据的同口径测算。`analyze_bids.py` 不解释这两个可选字段，也不会据此自动修正原价或产生正式排名；由 AI 按项目规则组织工作簿公式并复核。
+
 ## 清单项目
 
 `items` 为列表，每项有 `item_key`、`name`、`spec`、`unit`、`scope`、`tender_quantity`、`mapping_confirmed` 和 `bids`。
