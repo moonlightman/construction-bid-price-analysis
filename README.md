@@ -1,8 +1,8 @@
 # 工程回标分析 Skill
 
-当前版本：**price-bid-analysis v5.7-local**。
+当前版本：**price-bid-analysis v5.8-local**。
 
-- [下载当前安装包](price-bid-analysis-v5.7-local.zip)：ZIP 根目录包含 SKILL.md，可直接交给支持 ZIP 的 Skill 导入器。
+- [下载当前安装包](price-bid-analysis-v5.8-local.zip)：ZIP 根目录包含 SKILL.md，可直接交给支持 ZIP 的 Skill 导入器。
 - [查看技能入口](price-bid-analysis/SKILL.md)：中文业务流程，AI 主导分析，经验库和历史报价库可选只读。
 - [公式与可编辑输入](price-bid-analysis/references/formula-policy.md)：派生结果使用 Excel 公式，原件值与测算值分开。
 - [工程表格布局](price-bid-analysis/references/reference-layout.md)：固定六表、横向报价矩阵、字体与图表验收。

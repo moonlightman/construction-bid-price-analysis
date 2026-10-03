@@ -4,7 +4,9 @@
 
 ## 项目与投标人
 
-`project` 保存 `project_id`、`name`、`pricing_date`、`region`、`currency`、`tax_basis`、`round_id` 和 `thresholds`。阈值键及默认值见分析方法。
+`project` 保存 `project_id`、`name`、`pricing_date`、`region`、`currency`、`tax_basis`、`round_id` 和 `thresholds`。阈值键及默认值见分析方法。供经验库保存时须有稳定 project_id 和 round_id，由 AI 在项目底稿中分配并持续沿用；不要求用户提供内部编号。
+
+原件可识别时同时保留 freight_basis（运费）、installation_basis（甲供/乙供及安装范围）、tax_rate、discount_basis、payment_terms、plant、valid_from/valid_to。项目默认条件只适用于确实共用的范围；具体报价条件放 bids，其次清单项、投标人层级。显式 null 表示未知，不用上层条件覆盖。实际来源 source 仍独立保留，不从汇总表定位猜分项来源。
 
 `bidders` 为列表，每家包含：
 
@@ -51,7 +53,7 @@
 
 ```json
 {
-  "project": {"project_id": "P001", "currency": "CNY"},
+  "project": {"project_id": "P001", "round_id": "R1", "currency": "CNY"},
   "bidders": [{
     "bidder_id": "A", "name": "示例投标人", "stated_total": 1200,
     "source": {"file": "报价.xlsx", "sheet": "汇总", "cell": "B2"},
