@@ -2,12 +2,14 @@
 
 回标分析为只读端，experience-memory 为写入维护端。两个 Skill 共用已配置的库，不按各自安装目录创建两个空库。
 
-## 本地已配置库
+## 本地已配置库（当前默认）
+
+临时运行优先采用 experience-memory 的 local 配置，无需飞书授权。正式数据位于其 data 目录。安装位置由宿主技能位置确定；读取失败不另外初始化空库。
 
 使用 experience-memory 安装目录中的实际脚本路径执行：
 
 ```text
-python <experience-memory目录>/scripts/history_store.py --db <已配置历史库.sqlite> query --request query.json --output history-result.json
+python <experience-memory目录>/scripts/history_store.py --config <experience-memory目录>/config/storage.json query --request query.json --output history-result.json
 ```
 
 query.json 的 `library_type` 为 history_price，`name` 为通用项目名，`as_of` 为本次计价日，其他可选字段 spec/unit/scope/region/currency/tax_basis/installation_basis/price_type/exclude_project。实际路径来自平台配置，不猜路径。无当前计价日时先澄清或仅作无日期确认的候选阅读，不使用今天替代。
