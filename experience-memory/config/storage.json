@@ -1,0 +1,12 @@
+{
+  "schema": "inquiry-history-config/v2",
+  "backend": "local",
+  "local_db": "../data/history.sqlite",
+  "migration_target": {
+    "backend": "feishu",
+    "enabled": false,
+    "host_config": "feishu-library.json"
+  },
+  "note": "仅供本地 SQLite 脚本使用；飞书工作伙伴读取同目录 feishu-library.json，由宿主工具操作。此配置不触发网络或同步。",
+  "source_root": ".."
+}

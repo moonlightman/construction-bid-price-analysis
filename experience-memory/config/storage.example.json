@@ -1,0 +1,15 @@
+{
+  "schema": "inquiry-history-config/v2",
+  "backend": "local",
+  "local_db": "../data/history.sqlite",
+  "migration_target": {
+    "backend": "feishu",
+    "enabled": false,
+    "folder_token": "",
+    "base_token": "",
+    "tables": {},
+    "field_mapping": {}
+  },
+  "note": "当前只使用本地库；迁移目标不触发联网。相对路径以本配置所在目录为基准。",
+  "source_root": ".."
+}

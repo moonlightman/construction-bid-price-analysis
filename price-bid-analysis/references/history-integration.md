@@ -2,9 +2,9 @@
 
 回标分析为只读端，experience-memory 为写入维护端。两个 Skill 共用已配置的库，不按各自安装目录创建两个空库。
 
-## 本地已配置库（当前默认）
+## 本地已配置库（用户选择本地运行时）
 
-临时运行优先采用 experience-memory 的 local 配置，无需飞书授权。正式数据位于其 data 目录。安装位置由宿主技能位置确定；读取失败不另外初始化空库。
+用户明确选择本地运行时采用 experience-memory 的 local 配置，无需飞书授权。正式数据位于其 data 目录。安装位置由宿主技能位置确定；读取失败不另外初始化空库。
 
 使用 experience-memory 安装目录中的实际脚本路径执行：
 
@@ -19,6 +19,8 @@ query.json 的 `library_type` 为 history_price，`name` 为通用项目名，`a
 AI 结合规格、工作范围、价格阶段和日期挑选证据，按项目去重、分组比较；保存原价、调整过程、原件来源及库版本。只返回总价的记录不能用于分项单价比价。
 
 ## 飞书配置库
+
+飞书工作伙伴优先读取本包 `config/feishu-library.json`，执行 [固定库调用规则](feishu-host-library.md)。下面的运行配置不指本地 SQLite 的 storage.json。
 
 从 experience-memory 的实际运行配置获取 folder_token/base_token/table_id/字段映射。使用当前环境已授权飞书只读工具分页读取当前版本，解析 payload_json 并按上述相同字段处理。不存在真实目标/权限时返回 not_configured/unavailable，不能声称空库或已查询。不得仅凭用户上传一个 Skill ZIP 就假定云端库已部署。
 

@@ -1,0 +1,53 @@
+{
+  "schema": "inquiry-host-library/v1",
+  "configuration_id": "gcl-history-base-20261003",
+  "preferred_backend_in_feishu": "feishu",
+  "execution": "host_authorized_tools",
+  "base_url": "https://gclxtpt-power.feishu.cn/base/BDOibroGoaQHN0sBEpGcNjc7nlz",
+  "base_token": "BDOibroGoaQHN0sBEpGcNjc7nlz",
+  "tables": {
+    "projects": {
+      "name": "项目台账",
+      "table_id": "tblbKcqBfIrtkEyh"
+    },
+    "history_prices": {
+      "name": "历史价格",
+      "table_id": "tblPFRS8kxZab7xr"
+    },
+    "experience_references": {
+      "name": "经验与参考",
+      "table_id": "tblHKyvDcjX2TkN1"
+    }
+  },
+  "roles": {
+    "price-bid-analysis": "read_only",
+    "experience-memory": "read_and_append_versions"
+  },
+  "field_resolution": "read_live_schema_and_match_names_before_use",
+  "price_field_names": {
+    "record_id": "记录编号",
+    "revision_id": "版本编号",
+    "previous_revision_id": "上一版本编号",
+    "payload_json": "完整记录JSON",
+    "status": "复核状态",
+    "is_current": "当前有效版本",
+    "project_link": "所属项目",
+    "price_type": "价格阶段",
+    "pricing_date": "价格日期",
+    "unit_price": "单价",
+    "source_file": "来源文件名",
+    "source_location": "原文定位"
+  },
+  "project_field_names": {
+    "project_id": "项目编号",
+    "name": "项目名称",
+    "attachments": "项目附件"
+  },
+  "attachment_policy": "attach_to_existing_project_or_reference_record",
+  "fallback": {
+    "analysis": "continue_with_disclosed_unavailable_library",
+    "write": "produce_pending_sync_receipt"
+  },
+  "verification": "target_identified; host_read_write_and_new_session_retrieval_not_yet_verified",
+  "note": "此文件由宿主智能体读取，不是 history_store.py 的 --config 参数，不含凭据，也不自动授予权限。"
+}

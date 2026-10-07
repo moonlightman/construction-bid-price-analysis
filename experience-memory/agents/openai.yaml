@@ -1,0 +1,6 @@
+interface:
+  display_name: "历史价格与询价经验"
+  short_description: "记录最终谈判价格、导入历史清单，保留飞书来源与版本，供下次回标分析检索比价"
+  default_prompt: "使用 $experience-memory 记录本次最终谈判结果，或导入历史报价资料，供后续回标比价使用。"
+policy:
+  allow_implicit_invocation: true

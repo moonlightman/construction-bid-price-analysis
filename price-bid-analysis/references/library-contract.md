@@ -1,6 +1,6 @@
 # 可选经验库与历史报价库接口
 
-已增加与 `experience-memory v2` 的具体只读接入，见 [历史库接入](history-integration.md)。该版本提供本地可执行查询与飞书映射约定；飞书实际 token/权限尚需运行配置，不能把接口规范当成已部署在线服务。
+已增加与 `experience-memory v2` 的具体只读接入，见 [历史库接入](history-integration.md)。该版本提供本地可执行查询与飞书映射约定；飞书目标已写入 `config/feishu-library.json`，由宿主按 [固定库调用规则](feishu-host-library.md) 使用；目标配置不代表权限和调用已验证。
 
 ## 读取原则
 
