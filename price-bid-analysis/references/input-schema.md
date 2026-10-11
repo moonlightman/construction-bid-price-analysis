@@ -101,3 +101,21 @@
 ## v6结构与算法可选扩展
 
 新增结构关系、情景、特征矩阵及独立校准输入见 [算法扩展数据契约](algorithm-schema.md)。原字段和原始值不变；新脚本与原analyze_bids.py分开输出，兼容旧底稿。
+
+
+## v6.1 施工内容对照字段
+
+新底稿project.scope_review_required=true。item.construction_content保存参照原文，bid.construction_content保存报价原文；bid.scope_review结构如下（八维必须全部登记，示例只展示supply一维，不能作为完整可比底稿）：
+
+```json
+{
+  "review_status": "confirmed", "coverage_confirmed": true,
+  "reference": {"kind": "tender", "text": "含主材供应与安装", "source": {"file": "招标.xlsx", "sheet": "清单", "cell": "C3"}},
+  "quoted": {"text": "主材甲供，仅安装", "source": {"file": "报价.xlsx", "sheet": "清单", "cell": "C3"}},
+  "dimensions": [{"dimension": "supply", "status": "different", "reference_evidence": "含主材供应", "quoted_evidence": "主材甲供", "reason": "主材责任发生变化"}]
+}
+```
+
+八维键、状态和继承规则见[施工内容对照](construction-content.md)。equivalent需理由和两侧有效摘录；same还要求摘录除空白外一致；unknown阻止可比准入。程序只验证证据结构，不证明语义结论正确。不要伪造内容或来源来满足字段。
+
+脚本返回scope_comparison（逐项证据与状态）、item_analysis.scope_status、bidder_summary.scope_comparison_eligible。different/pending会阻止该行进入基准并阻止该投标人原价排名；数值对账仍独立完成。此限制同样用于结构分析。旧底稿未带新字段且未启用开关时保持兼容，输出not_run，不能当作施工内容已通过。新任务必须启用开关，旧底稿需补全后才能声称完成施工内容复核。

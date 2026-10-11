@@ -7,7 +7,7 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSIONS = {'price-bid-analysis':'6.0','experience-memory':'2.1'}
+VERSIONS = {'price-bid-analysis':'6.1','experience-memory':'2.1'}
 
 
 def eligible(path):
@@ -18,7 +18,7 @@ def main():
     configs = [json.loads((ROOT/name/'config/feishu-library.json').read_text(encoding='utf-8')) for name in VERSIONS]
     if configs[0] != configs[1]:
         raise ValueError('两个Skill的固定库配置不一致')
-    manifest = dict(release_date='2026-10-08',packages=[],
+    manifest = dict(release_date='2026-10-11',packages=[],
         note='哈希与包结构验证不是飞书读写或真实项目算法验收')
     for name,version in VERSIONS.items():
         skill = ROOT/name

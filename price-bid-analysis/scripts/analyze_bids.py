@@ -4,6 +4,7 @@ import argparse
 import json
 import math
 import statistics
+from compare_scope import review_scope
 from pathlib import Path
 
 DEFAULTS = dict(price_deviation_pct=.15, severe_deviation_pct=.30,
@@ -51,6 +52,8 @@ def analyze(data):
     reviewed = {k: True for k in ids}
     counts = {k: 0 for k in ids}
     seen = set()
+    scope_ok = {k: True for k in ids}
+    scope_results = []
 
     def flag(bidder, item, issue, source=None, **extra):
         flags.append(dict(bidder_id=bidder, item_key=item, issue=issue, source=source, **extra))
@@ -70,6 +73,11 @@ def analyze(data):
             source = bid.get('source')
             if bid.get('review_status') == 'excluded':
                 continue
+            scope = review_scope(data.get('project', {}), item, bid)
+            scope_results.append(dict(item_key=key, bidder_id=bidder, **scope))
+            scope_ok[bidder] &= scope['eligible']
+            if not scope['eligible']:
+                flag(bidder, key, '施工内容存在差异或尚未完成核对', source, scope_status=scope['status'], scope_details=scope)
             counts[bidder] += 1
             confirmed = bid.get('review_status') == 'confirmed' and located(source)
             valid = confirmed
@@ -127,7 +135,8 @@ def analyze(data):
             row = dict(item_key=key, bidder_id=bidder, unit_price=p, line_total=amount,
                        quoted_quantity=q, derived_combined_value=derived, source=source,
                        eligible_for_comparison=valid and bid.get('comparable') is True
-                       and item.get('mapping_confirmed') is True)
+                       and item.get('mapping_confirmed') is True and scope['eligible'],
+                       scope_status=scope['status'])
             rows.append(row)
             group.append(row)
         # items 应包括已知范围的全部项目；缺列不擅自认定漏项。
@@ -181,14 +190,15 @@ def analyze(data):
                               extracted_sum=sums[key] if counts[key] and complete[key] else None,
                               partial_extracted_sum=sums[key] if counts[key] else None,
                               reconciliation_difference=difference, reconciliation_status=status,
-                              ranking_eligible=status=='一致' and bidder.get('total_comparable') is True))
+                              scope_comparison_eligible=scope_ok[key],
+                              ranking_eligible=status=='一致' and bidder.get('total_comparable') is True and scope_ok[key]))
     # 只有全体报价范围可比且核验通过，才生成统一暂排；正式评标价由评审确认。
     if len(summaries)>=2 and all(s['ranking_eligible'] for s in summaries):
         values=sorted(set(s['stated_total'] for s in summaries))
         for s in summaries:
             s['provisional_rank']=values.index(s['stated_total'])+1
     return dict(schema='price-bid-analysis/v5', thresholds_used=cfg,
-                bidder_summary=summaries, item_analysis=rows, review_signals=flags,
+                bidder_summary=summaries, item_analysis=rows, review_signals=flags, scope_comparison=scope_results,
                 limitations=['脚本结果限于输入底稿；来源与可比性需回查原件',
                              '缺失、未确认或算术异常记录不进入价格基准；暂排不等于正式评标价'])
 
